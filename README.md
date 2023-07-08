@@ -4,14 +4,14 @@ The Piano Practice Reminder Discord Bot is a bot designed to help piano teachers
 
 ## Features
 
-- Sends daily practice reminders via direct message to all students.
-- Students can confirm their practice by reacting with a checkmark emoji.
-- Teacher receives notifications when a student has practiced piano.
-- Sends a reminder to the teacher if a student hasn't practiced by 10 PM.
-- Customizable time for sending reminders.
-- Customizable messages and reaction emojis.
-- Whitelist feature to exclude specific users from receiving reminders.
-- Easy-to-use commands for triggering reminders and testing the bot.
+- Automatic practice reminder messages sent to all students in the server via direct messages.
+- Students can react with ✅ if they have practiced piano.
+- Students can react with 💤 to snooze the reminder for 2 hours.
+- Students can react with 🚫 if they cannot practice piano, and provide a reason.
+- The bot notifies the creator when a student has practiced piano or provides a reason for not practicing.
+- The bot handles different time ranges to mark students as "not practiced" if they haven't responded.
+- Option to whitelist certain users who won't receive the practice reminder message.
+- Easy-to-use commands to trigger the practice reminder and test the bot's functionality.
 
 ## Requirements
 
