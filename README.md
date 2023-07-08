@@ -30,6 +30,7 @@ The Piano Practice Reminder Discord Bot is a bot designed to help piano teachers
 
 3. Create a .env file in the project directory and add the following:
 
+    ```shell
     TOKEN=YOUR_BOT_TOKEN
     Replace YOUR_BOT_TOKEN with your actual bot token.
 
