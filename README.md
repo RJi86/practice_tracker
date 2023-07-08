@@ -31,9 +31,10 @@ Set up a bot account on the Discord Developer Portal and obtain the bot token.
 
 Create a .env file in the project directory and add the following:
 
-plaintext
+    ```shell
+        plaintext
 Copy code
-DISCORD_TOKEN=YOUR_BOT_TOKEN
+    ```DISCORD_TOKEN=YOUR_BOT_TOKEN
 Replace YOUR_BOT_TOKEN with your actual bot token.
 
 Invite the bot to your Discord server using the OAuth2 URL generated in the Developer Portal.
@@ -42,11 +43,11 @@ Customize the bot's behavior by modifying the code in main.py to fit your specif
 
 Start the bot by running the following command:
 
-shell
-Copy code
-python main.py
-Usage
-Use the command !send_msg_everyone to trigger the practice reminder messages to all students in the server.
+```shell
+    Copy code
+    python main.py
+    Usage
+    Use the command !send_msg_everyone to trigger the practice reminder messages to all students in the server.
 
 Students will receive a direct message asking if they have practiced piano. They can react with the respective emojis to indicate their practice status.
 
@@ -54,7 +55,7 @@ The bot will notify the creator when a student has practiced piano or provides a
 
 Use the command !test to check if the bot is functioning correctly and receive a response from the bot.
 
-Customization
+## Customization
 You can customize the bot's behavior by modifying the code in main.py. Some aspects you may consider customizing include:
 
 Modifying the time when the reminder messages are sent (send_message_to_everyone function).
@@ -69,8 +70,3 @@ Please ensure you have the necessary permissions to run and modify the bot.
 
 Contributions
 Contributions to the Piano Practice Reminder Discord Bot are welcome! If you have any ideas, improvements, or bug fixes, feel free to open an issue or submit a pull request.
-
-License
-This project is licensed under the MIT License.
-
-Feel free to modify and adapt this README.md file to best suit your project's specific details and requirements.
