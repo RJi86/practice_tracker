@@ -1,22 +1,61 @@
 import discord
 from discord.ext import commands, tasks
 from datetime import datetime 
-import dotenv
 import os
 import asyncio
+import getopt, sys
 # from discord import app_commands
 
 intents = discord.Intents.all()
 intents.message_content = True
 
-dotenv.load_dotenv()
-TOKEN = os.getenv("TOKEN")
-CREATOR_ID = os.getenv("CREATOR_ID")
-STUDENT_1 = os.getenv("STUDENT_1")
-STUDENT_2 = os.getenv("STUDENT_2")
-STUDENT_3 = os.getenv("STUDENT_3")
+arg_list = sys.argv[1:]
 
-student_list = {STUDENT_1, STUDENT_2, STUDENT_3}
+options = "htcs:"
+long_options = ["help", "token_file=", "creator_id=", "students_file="]
+token = ''
+creator = ''
+students = []
+try:
+
+    args, vals = getopt.getopt(arg_list, options, long_options)
+
+    for argument, value in args:
+        if argument in ("-h", "--help"):
+            print("USAGE: python main.py -t <Token File> -c <Creator ID File> -s <Student ID's File>")
+            sys.exit(0)
+        if argument in ("-t", "--token_file"):
+            token_file = open(value)
+            token = token_file.lines()[0]
+            token_file.close()
+            token.strip()
+            token = int(token)
+        if argument in ("-c", "--creator_id"):
+            creator_file = open(value)
+            creator = creator_file.lines()[0]
+            creator_file.close()
+            creator.strip()
+            CREATOR_ID = int(creator)
+        if argument in ("-s", "--students_file"):
+            students_file = open(value)
+            for line in students_file:
+                line.strip()
+                students.append(int(line))
+            students_file.close()
+except getopt.error as err:
+    print(str(err))
+    sys.exit()
+
+if token == "":
+    print("Missing token arg: Aborting")
+    sys.exit()
+if creator == "":
+    print("Missing creator arg: Aborting")
+    sys.exit()
+if len(students) == 0:
+    print("Missing students arg: Aborting")
+    sys.exit()
+
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 last_reminder_time = None
@@ -42,7 +81,7 @@ async def check_permissions():
                 else:
                     await member.send("I require administrator permissions to work properly. Please make sure I have the necessary permissions.")
                     
-@tasks.loop(hours=1)
+@tasks.loop(hours=24)
 async def check_practice():
     creator = bot.get_user(CREATOR_ID)
     current_time = datetime.datetime.now().strftime("%H:%M")
@@ -97,7 +136,7 @@ async def send_message_to_everyone(ctx):
                 if (
                     not member.bot
                     and member.id not in practiced_members
-                    and member.id in student_list
+                    and member.id in students
                 ):
                     try:
                         print(f"Processing member: {member.name} ({member.id})")
@@ -176,4 +215,4 @@ async def test_command(ctx):
 # "Have you practiced piano today? If you have, use ✅. If you need more time, use 💤 (If you react with this message, I will give you 2 hour extra before sending the same message again). If you don't reply in 3 hours from this message being sent, you will be logged as 'NOT PRACTICED!!!'"
 # Have you practiced piano today? React with ✅ if you have. BTW, this is an automated message. If there is not response, you will be logged as 'Not practiced!'. To get more time, just react with 💤 for snooze and I will send the message 5 hours later.
 
-bot.run(TOKEN)
+bot.run(token)
